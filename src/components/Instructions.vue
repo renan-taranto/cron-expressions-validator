@@ -10,7 +10,8 @@
       before applying any changes to the infrastructure. Insert the expression in the input and it will be validated.
     </p>
     <p>
-      <span class="text__highlight">This web application</span> is an open source project authored by Renan Taranto and licensed by the MIT free software license.
+      <span class="text__highlight">This web application</span> is an open source project authored by
+      <a href="https://renantaranto.com/">Renan Taranto</a> and licensed by the MIT free software license.
     </p>
   </article>
 </template>

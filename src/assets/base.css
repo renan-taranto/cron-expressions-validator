@@ -3,7 +3,7 @@
   --color-black-soft: #181818;
   --color-white-soft: #f8f8f8;
   --color-grey: #a1a1a1;
-  --color-red: #be1e2e;
+  --color-orange: #e74727;
 }
 
 /* semantic color variables */
@@ -11,15 +11,25 @@
   --color-background: var(--color-black-soft);
   --color-text: var(--color-white-soft);
   --color-input-text: var(--color-grey);
-  --color-primary: var(--color-red);
+  --color-primary: var(--color-orange);
 }
 
 html {
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline dotted;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 body {
@@ -28,7 +38,6 @@ body {
   background: var(--color-background);
   line-height: 1.6;
   font-family: 'TexGyreHeroes', sans-serif;
-  font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,6 +50,10 @@ h1 {
 
 input {
   color: var(--color-text);
+}
+
+.text__bold {
+  font-weight: bold;
 }
 
 @font-face {
