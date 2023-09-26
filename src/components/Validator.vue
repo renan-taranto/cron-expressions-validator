@@ -1,16 +1,32 @@
-<script setup>
+<script setup lang="ts">
 import AppInput from './AppInput.vue'
-import {ref, watch} from 'vue'
+import {ref, reactive, watch} from 'vue'
 import cron from 'cron-validate'
 
-let isValid = ref(null)
-const expression = ref('')
+interface Expression {
+  minutes?: String,
+  hours?: String,
+  dayOfMonth?: String,
+  month?: String,
+  dayOfWeek?: String,
+  year?: String
+}
+const expression: Expression = reactive({
+  minutes: '15,35',
+  hours: '14',
+  dayOfMonth: '*',
+  month: '*',
+  dayOfWeek: '?',
+  year: '*'
+})
 
-watch(expression, async(newExpression, oldExpression) => {
-  if (newExpression !== oldExpression && newExpression !== '') {
-    const cronResult = cron(newExpression, { preset: 'aws-cloud-watch' })
-    isValid = cronResult.isValid()
-  }
+const isValid = ref<Boolean>(true)
+watch(expression, async(newExpression) => {
+    const cronResult = cron(
+        `${newExpression.minutes} ${newExpression.hours} ${newExpression.dayOfMonth} ${newExpression.month} ${newExpression.dayOfWeek} ${newExpression.year}`,
+        { preset: 'aws-cloud-watch' }
+    )
+    isValid.value = cronResult.isValid()
 })
 </script>
 
@@ -19,15 +35,15 @@ watch(expression, async(newExpression, oldExpression) => {
     <section class="section__inputs">
       <AppInput :value="'15 10 ? * 6L 2019-2022'" class="input__sm"/>
 
-      <AppInput :valus="'5,35'" :label="'Minutes'" class="input__md"/>
-      <AppInput :value="'14'" :label="'Hours'" class="input__md"/>
-      <AppInput :value="'*'" :label="'Day of month'" class="input__md"/>
-      <AppInput :value="'*'" :label="'Month'" class="input__md"/>
-      <AppInput :value="'?'" :label="'Day of week'" class="input__md"/>
-      <AppInput :value="'*'" :label="'Year'" class="input__md"/>
+      <AppInput v-model="expression.minutes" label="Minutes" class="input__md"/>
+      <AppInput v-model="expression.hours" label="Hours" class="input__md"/>
+      <AppInput v-model="expression.dayOfMonth" label="Day of month" class="input__md"/>
+      <AppInput v-model="expression.month" label="Month" class="input__md"/>
+      <AppInput v-model="expression.dayOfWeek" label="Day of week" class="input__md"/>
+      <AppInput v-model="expression.year" label="Year" class="input__md"/>
     </section>
-    <section class="section__write-out-expression">
-      "At 22:00 on every day-of-week from Monday through Friday."
+    <section class="section__result">
+      This expression is <span class="text__bold">{{ isValid ? '' : 'not' }} valid</span>.
     </section>
   </section>
 </template>
@@ -41,8 +57,8 @@ watch(expression, async(newExpression, oldExpression) => {
   display: none;
 }
 
-.section__write-out-expression {
-  color: var(--color-grey);
+.section__result {
+  color: var(--color-orange);
   margin-top: 5px;
   text-align: center;
   font-size: .9rem;
@@ -65,7 +81,7 @@ watch(expression, async(newExpression, oldExpression) => {
     margin: 3px;
   }
 
-  .section__write-out-expression {
+  .section__result {
     margin: 0 0 0 15%;
     text-align: right;
   }
@@ -77,7 +93,7 @@ watch(expression, async(newExpression, oldExpression) => {
     margin: 0 0 0 15%;
   }
 
-  .section__write-out-expression {
+  .section__result {
     margin-top: 10px;
   }
 }

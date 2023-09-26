@@ -1,19 +1,28 @@
 <script setup lang="ts">
+
 defineProps({
   label: {
     type: String,
     default: ''
   },
-  value: {
+  modelValue: {
     type: String,
     default: '?'
   }
 })
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
   <div>
-    <input class="input__text" type="text" required="required"  :value="value" autofocus/>
+    <input
+        class="input__text"
+        type="text"
+        required="required"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        autofocus
+    />
     <div v-if="label" class="input__message">{{ label }}</div>
   </div>
 </template>
