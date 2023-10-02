@@ -11,7 +11,7 @@ interface Expression {
   dayOfWeek?: String,
   year?: String
 }
-const expression: Expression = reactive({
+const expressionParts: Expression = reactive({
   minutes: '15,35',
   hours: '14',
   dayOfMonth: '*',
@@ -19,28 +19,34 @@ const expression: Expression = reactive({
   dayOfWeek: '?',
   year: '*'
 })
-
+const fullExpression = ref<String>('15,35 14 * * ? *')
 const isValid = ref<Boolean>(true)
-watch(expression, async(newExpression) => {
-    const cronResult = cron(
-        `${newExpression.minutes} ${newExpression.hours} ${newExpression.dayOfMonth} ${newExpression.month} ${newExpression.dayOfWeek} ${newExpression.year}`,
-        { preset: 'aws-cloud-watch' }
-    )
-    isValid.value = cronResult.isValid()
+
+watch(expressionParts, async(newExpressionParts) => {
+    validateExpression(`${newExpressionParts.minutes} ${newExpressionParts.hours} ${newExpressionParts.dayOfMonth} ${newExpressionParts.month} ${newExpressionParts.dayOfWeek} ${newExpressionParts.year}`)
 })
+watch(fullExpression, async(newExpression) => {
+    validateExpression(newExpression)
+})
+
+const validateExpression = (expression: String) => {
+  const cronResult = cron(expression, { preset: 'aws-cloud-watch' })
+  isValid.value = cronResult.isValid()
+}
+
 </script>
 
 <template>
   <section>
     <section class="section__inputs">
-      <AppInput :value="'15 10 ? * 6L 2019-2022'" class="input__sm"/>
+      <AppInput v-model="fullExpression" class="input__sm"/>
 
-      <AppInput v-model="expression.minutes" label="Minutes" class="input__md"/>
-      <AppInput v-model="expression.hours" label="Hours" class="input__md"/>
-      <AppInput v-model="expression.dayOfMonth" label="Day of month" class="input__md"/>
-      <AppInput v-model="expression.month" label="Month" class="input__md"/>
-      <AppInput v-model="expression.dayOfWeek" label="Day of week" class="input__md"/>
-      <AppInput v-model="expression.year" label="Year" class="input__md"/>
+      <AppInput v-model="expressionParts.minutes" label="Minutes" class="input__md"/>
+      <AppInput v-model="expressionParts.hours" label="Hours" class="input__md"/>
+      <AppInput v-model="expressionParts.dayOfMonth" label="Day of month" class="input__md"/>
+      <AppInput v-model="expressionParts.month" label="Month" class="input__md"/>
+      <AppInput v-model="expressionParts.dayOfWeek" label="Day of week" class="input__md"/>
+      <AppInput v-model="expressionParts.year" label="Year" class="input__md"/>
     </section>
     <section class="section__result">
       This expression is <span class="text__bold">{{ isValid ? '' : 'not' }} valid</span>.
