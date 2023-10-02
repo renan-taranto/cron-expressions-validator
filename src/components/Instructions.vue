@@ -1,13 +1,13 @@
 <template>
   <article>
     <p>
-      <span class="text__highlight">Cron Expressions</span> are used for scheduled rules on AWS "EventBridge" (formerly called "Amazon CloudWatch Events").
-      Currently, the only way to validate these on AWS is trough the Console, while creating or editing existing rules.
-      This can be cumbersome when using "Infrastructure as Code" tools since you are not always logged to the AWS Console.
+      <span class="text__highlight">Cron Expressions</span> are used to create scheduled rules on AWS "EventBridge" (formerly called "Amazon CloudWatch Events").
+      Many services like Lambda and ECS integrate with EventBridge to trigger actions like invoking functions and running scheduled tasks.
     </p>
     <p>
-      <span class="text__highlight">The goal</span> of this web page is to help architects to validate Cron Expressions easier while doing code reviews on IaC or just
-      before applying any changes to the infrastructure. Insert the expression in the input and it will be validated.
+      <span class="text__highlight">The goal</span> of this web page is to help architects to validate their Cron Expressions.
+      It can be useful while creating new rules, doing code reviews on "IaC" or just before applying any changes to the infrastructure.
+      Insert the expression in the input and it will be validated.
     </p>
     <p>
       <span class="text__highlight">This web application</span> is an open source project authored by
