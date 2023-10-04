@@ -49,7 +49,12 @@ const validateExpression = (expression: String) => {
       <AppInput v-model="expressionParts.year" label="Year" class="input__md"/>
     </section>
     <section class="section__result">
-      This expression is <span class="text__bold">{{ isValid ? '' : 'not' }} valid</span>.
+      <span v-if="isValid">
+        <span class="text--bold color--primary">Valid</span> expression.
+      </span>
+      <span v-else>
+        This expression is <span class="text--bold color--primary">Not Valid</span>.
+      </span>
     </section>
   </section>
 </template>
@@ -64,7 +69,6 @@ const validateExpression = (expression: String) => {
 }
 
 .section__result {
-  color: var(--color-orange);
   margin-top: 5px;
   text-align: center;
   font-size: .9rem;

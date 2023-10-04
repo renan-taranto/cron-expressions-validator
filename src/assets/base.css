@@ -52,9 +52,14 @@ input {
   color: var(--color-text);
 }
 
-.text__bold {
+.text--bold {
   font-weight: bold;
 }
+
+.color--primary {
+  color: var(--color-primary);
+}
+
 
 @font-face {
   font-family: 'TexGyreHeroes';
