@@ -1,35 +1,25 @@
-# aws-schedule-expression-validator
+# Event Bridge Cron Expressions Validator
 
-This template should help get you started developing with Vue 3 in Vite.
+Web application for validating Event Bridge [Cron Expressions](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html). 
 
-## Recommended IDE Setup
+Available at https://cron.renantaranto.com.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Setup
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+Clone the project and run:
 
 ```sh
-npm install
+    npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Deploy on GitHub Pages
+
+Run:
 
 ```sh
-npm run dev
+    npm run deploy
 ```
 
-### Compile and Minify for Production
+## Author
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+[Renan Taranto](https://renantaranto.com)
